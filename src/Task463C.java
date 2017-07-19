@@ -61,28 +61,36 @@ public class Task463C {
         int[][] b = new int[n][n];
         int max = Integer.MIN_VALUE;
         int x1 = -1, y1 = -1;
+        int max2 = Integer.MIN_VALUE, x2 = -1, y2 = -1;
+        boolean isEven = true;
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < n; j++) {
                 b[i][j] = l[i][j] + r[i][j] - a[i][j];
-                if(max < b[i][j]) {
+                isEven = (i+j) % 2 == 0;
+                if(max < b[i][j] && isEven) {
                     max = b[i][j];
                     x1 = i;
                     y1 = j;
                 }
-            }
-        }
-//        printa(b);
-        int max2 = Integer.MIN_VALUE, x2 = -1, y2 = -1;
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < n; j++) {
-                if(max2 < b[i][j]) {
-                    if(i == x1 && j == y1) continue;
+                if(max2 < b[i][j] && !isEven) {
                     max2 = b[i][j];
                     x2 = i;
                     y2 = j;
                 }
             }
         }
+//        printa(b);
+//
+//        for(int i = 0; i < n; i++) {
+//            for(int j = 0; j < n; j++) {
+//                if(max2 < b[i][j]) {
+//                    if(i == x1 && j == y1) continue;
+//                    max2 = b[i][j];
+//                    x2 = i;
+//                    y2 = j;
+//                }
+//            }
+//        }
         out.println(max+max2);
         out.println((x1+1) + " " + (y1+1) + " " + (x2+1) + " " + (y2+1));
 
