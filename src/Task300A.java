@@ -34,14 +34,11 @@ public class Task300A {
             // add two nega to make it positive
             b.add(nums[start++]);
             b.add(nums[start++]);
-            for(int j = start; j <= end; j++) {
-                c.add(nums[j]);
-            }
         } else {
             b.add(nums[end--]);
-            for(int j = start; j <= end; j++) {
-                c.add(nums[j]);
-            }
+        }
+        for(int j = start; j <= end; j++) {
+            c.add(nums[j]);
         }
 
 //        int i = 0;
