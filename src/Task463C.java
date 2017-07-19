@@ -28,8 +28,8 @@ public class Task463C {
             a[i] = na(n);
         }
 //        printa(a);
-        int[][] l = new int[n][n];
-        int[][] r = new int[n][n];
+        long[][] l = new long[n][n];
+        long[][] r = new long[n][n];
 
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < n; j++) {
@@ -58,10 +58,11 @@ public class Task463C {
             }
         }
 //        printa(r);
-        int[][] b = new int[n][n];
-        int max = Integer.MIN_VALUE;
+        long[][] b = new long[n][n];
+        long max = Integer.MIN_VALUE;
         int x1 = -1, y1 = -1;
-        int max2 = Integer.MIN_VALUE, x2 = -1, y2 = -1;
+        long max2 = Integer.MIN_VALUE;
+        int x2 = -1, y2 = -1;
         boolean isEven = true;
         for(int i = 0; i < n; i++) {
             for(int j = 0; j < n; j++) {
