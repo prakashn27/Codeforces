@@ -1,4 +1,4 @@
-package _832;/**
+/**
  * Created by prakashn on 7/24/2017.
  */
 
@@ -7,14 +7,85 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.InputMismatchException;
+import java.util.Set;
 
-public class A {
+public class _832B {
     InputStream is;
     PrintWriter out;
-    String INPUT = "";
+    String INPUT = "a\n" +
+            "aa\n" +
+            "1\n" +
+            "aaa";
 
+    Set<Character> s = null;
+    String pat = null;
+    int starPat = 0;
     void solve() {
+        String m = ns();
+        pat = ns();
+        starPat = pat.indexOf('*');
+        int t = ni();
+        s = new HashSet<>();
+        for(char ch : m.toCharArray()) {
+            s.add(ch);
+        }
+        while(t-- > 0) {
+            String str = ns();
+//            out.print(str + '\t');
+            if(starPat == -1 && str.length() < pat.length()) {
+                out.println("NO");
+                continue;
+            }
+            if(starPat != -1 && str.length() < pat.length()-1) {
+                out.println("NO");
+                continue;
+            }
+            if(process(str)) out.println("YES");
+            else out.println("NO");
+        }
+    }
+
+    private boolean process(String str) {
+        if(starPat == 0) {
+            // check the last half
+            return checkPattern(str.substring(str.length()-pat.length()+1), pat.substring(1, pat.length())) && checkBad(str.substring(0, str.length()-pat.length()+1));
+        } else if(starPat == pat.length() - 1) {
+            // check the first half
+            return checkPattern(str.substring(0, starPat), pat.substring(0, starPat)) && checkBad(str.substring(starPat));
+        } else if(starPat == -1) {
+            // no star
+            if(str.length() != pat.length()) return false;
+            return checkPattern(str, pat);
+        } else {
+            // check in between
+            String pat1 = pat.substring(0, starPat);
+            String pat2 = pat.substring(starPat+1);
+            String str1 = str.substring(0, starPat);
+//            String str2 = str.substring(str.length()-starPat);
+            String str2 = str.substring(str.length()-pat2.length());
+//            String str3 = str.substring(starPat, str.length()- starPat);
+            String str3 = str.substring(0+str1.length(), str.length()-str2.length());
+            return checkBad(str3) && checkPattern(str1, pat1) && checkPattern(str2, pat2);
+        }
+    }
+    private boolean checkBad(String str) {
+        if(str.length() == 0) return true;
+        for(char ch : str.toCharArray()) {
+            if(s.contains(ch)) return false;
+        }
+        return true;
+    }
+    private boolean checkPattern(String str, String newPat) {
+        for(int i = 0; i < str.length(); i++) {
+            if(newPat.charAt(i) == '?') {
+                if(!s.contains(str.charAt(i))) return false;
+            } else {
+                if(newPat.charAt(i) != str.charAt(i)) return false;
+            }
+        }
+        return true;
     }
 
     void run() throws Exception {
@@ -28,7 +99,7 @@ public class A {
     }
 
     public static void main(String[] args) throws Exception {
-        new A().run();
+        new _832B().run();
     }
 
     private byte[] inbuf = new byte[1024];
