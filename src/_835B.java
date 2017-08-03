@@ -12,19 +12,31 @@ import java.util.InputMismatchException;
 public class _835B {
     InputStream is;
     PrintWriter out;
-    String INPUT = "3 99";
+    String INPUT = "200\n" +
+            "1000000010000000000000000000010000000000000001000001000000000000000000000000000000000000000000000000";
 
     void solve() {
-        long k = nl();
-        long n = nl();
-        String num = Long.toString(n);
+        int k = ni();
+        String n = ns();
+        char num[] = n.toCharArray();
         int sum = 0;
-        for(char ch: num.toCharArray()) {
+        int[] arr = new int[10];
+        for(char ch: num) {
             sum += ch - '0';
+            arr[ch-'0']++;
         }
-//        out.println("sum is " + sum+ " k is " + k);
-        if(sum >= k) out.println(0);
-        else out.print(k - sum);
+        tr(arr);
+        int ans=0;
+        for(int i = 0; sum < k && i < 10; i++) {
+            int count = arr[i];
+            if(count == 0) continue;
+            while(count-- > 0) {
+                sum = sum + 9 - i;
+                ans++;
+                if(sum >= k) break;
+            }
+        }
+        out.println(ans);
 
     }
 
