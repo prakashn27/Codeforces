@@ -1,5 +1,5 @@
-package educational;/**
- * Created by prakashn on 8/3/2017.
+/**
+ * Created by prakashn on 8/7/2017.
  */
 
 import java.io.ByteArrayInputStream;
@@ -9,92 +9,42 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.InputMismatchException;
 
-public class _26B {
+public class _152A {
     InputStream is;
     PrintWriter out;
-    String INPUT = "6 1\n" +
-            "R\n" +
-            "B\n" +
-            "G\n" +
-            "R\n" +
-            "B\n" +
-            "G";
+    String INPUT = "1 1 1";
 
     void solve() {
-        int n = ni(), m = ni();
-        Color r = new Color();
-        Color g = new Color();
-        Color b = new Color();
-        boolean isError = false;
+        int n = ni();
+        int m = ni(), j;
+        int[][] marks = new int[n][m];
+        String s = null;
         for(int i = 0; i < n; i++) {
-            char[] chs = ns().toCharArray();
-            for(int j = 0; j < m; j++) {
-                switch(chs[j]){
-                    case 'R':
-                        r.set(i, j);
-                        break;
-                    case 'G':
-                        g.set(i,j);
-                        break;
-                    case 'B':
-                        b.set(i,j);
-                        break;
-                    default:
-                        //error
-                        isError = true;
-                }
+            s = ns();
+            j = 0;
+            for(char ch : s.toCharArray()) {
+                marks[i][j] = ch - '0';
+                j++;
             }
         }
-//        out.println(r);
-//        out.println(g);
-//        out.println(b);
-        if(check(r, g) && check(r,b) && check(g,b)) {
-            out.println("YES");
+//        tr(marks);
+        int max;
+        boolean[] success = new boolean[n];
+        for (int i = 0; i < m; i++) {
+            max = 0;
+            for (j = 0; j < n; j++) {
+                max = Math.max(max, marks[j][i]);
+            }
+            for (j = 0; j < n; j++) {
+                if(marks[j][i] == max) success[j] = true;
+            }
         }
-//        if(r.diagonal() == g.diagonal() && g.diagonal() == b.diagonal() && !isError) {
-//            out.println("YES");
-//        }
-        else {
-            out.println("NO");
+//        tr(success);
+        int res = 0;
+        for(int i = 0; i < n; i++) {
+            if(success[i]) res++;
         }
-
-    }
-    boolean check(Color a, Color b) {
-        return checkx(a, b) && checky(a, b) && a.diagonal() == b.diagonal();
-    }
-    class Color {
-        public int minx,miny,maxx,maxy;
-        public Color() {
-            minx = 101;
-            miny = 101;
-            maxx = -2;
-            maxy = -2;
-        }
-        public void set(int x, int y) {
-            minx = Math.min(minx, x);
-            miny = Math.min(miny, y);
-            maxx = Math.max(maxx, x);
-            maxy = Math.max(maxy, y);
-        }
-        public String toString() {
-            return minx + "," + miny + " -> " + maxx + "," + maxy + " d:" + diagonal();
-        }
-        public long diagonal() {
-            long ans = (maxx - minx)*(maxx - minx) + (maxy - miny)*(maxy - miny);
-            return ans;
-        }
-        public int xdiff() {
-            return maxx - minx;
-        }
-        public int ydiff() {
-            return maxy - miny;
-        }
-    }
-    boolean checkx(Color a, Color b) {
-        return a.xdiff() == b.xdiff();
-    }
-    boolean checky(Color a, Color b) {
-        return a.ydiff() == b.ydiff();
+        out.println(res);
     }
 
     void run() throws Exception {
@@ -108,7 +58,7 @@ public class _26B {
     }
 
     public static void main(String[] args) throws Exception {
-        new _26B().run();
+        new _152A().run();
     }
 
     private byte[] inbuf = new byte[1024];
