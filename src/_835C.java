@@ -12,27 +12,67 @@ public class _835C {
     InputStream is;
     PrintWriter out;
     String INPUT = "3 4 5\n" +
-            "3 3 1\n" +
             "1 1 2\n" +
             "2 3 0\n" +
+            "3 3 1\n" +
             "0 1 1 100 100\n" +
             "1 2 2 4 4\n" +
             "2 2 1 4 7\n" +
             "1 50 50 51 51";
+    final int MAX_CORD = 100;
+    int[][][] cnt;
+    int n, q, c;
+    // Version 2
+    // using inclusion-exclusion principle and partial sums
+    int get(int t, int x1, int y1, int x2, int y2) {
+        int res = 0;
+        for (int i = 0; i <= c; i++) {
+            int brightness = (i + t) % (c + 1);
+            int amount = cnt[i][x2][y2] - cnt[i][x1 - 1][y2] - cnt[i][x2][y1 - 1] + cnt[i][x1 - 1][y1 - 1];
+            res += amount * brightness;
+        }
+        return res;
+    }
+
+    void solve() {
+        n = ni();
+        q = ni();
+        c = ni();
+        cnt = new int[c+1][MAX_CORD+1][MAX_CORD+1];
+        for(int i = 0; i < n; i++) {
+            int x = ni();
+            int y = ni();
+            int s = ni();
+            cnt[s][x][y]++;
+        }
+//        tr(cnt[0]);
+        for (int p = 0; p <= c; p++) {
+            for (int i = 1; i <= MAX_CORD; i++) {
+                for (int j = 1; j <= MAX_CORD; j++) {
+                    cnt[p][i][j] += cnt[p][i - 1][j] + cnt[p][i][j - 1] - cnt[p][i - 1][j - 1];
+                }
+            }
+        }
+        int t, x1, y1, x2, y2;
+        for(int i = 0; i < q; i++) {
+            t = ni();
+            x1 = ni();
+            y1 = ni();
+            x2 = ni();
+            y2 = ni();
+            out.write(get(t, x1, y1, x2, y2) + "\n");
+
+        }
+    }
+
+    /* version 1
     void solve() {
         int n = ni(), q = ni(), c = ni();
         LinkedList<Star> stars = new LinkedList<>();
         for(int i = 0; i < n; i++) {
             stars.add(new Star(ni(), ni(), ni(), c));
         }
-//        Collections.sort(stars, new Comparator<Star>() {
-//            @Override
-//            public int compare(Star o1, Star o2) {
-//                if(o1.x == o2.x)
-//                    return o1.y.compareTo(o2.y);
-//                else return o1.x.compareTo(o2.x);
-//            }
-//        });
+
         int t, x1, y1, x2, y2;
         long res = 0;
         for(int i = 0; i < q; i++) {
@@ -42,27 +82,7 @@ public class _835C {
             x2 = ni();
             y2 = ni();
             res = 0;
-//            int index = Collections.binarySearch(stars,
-//                    new Star(x1,y1,0,0),
-//                    new Comparator<Star>() {
-//                        @Override
-//                        public int compare(Star o1, Star o2) {
-//                            if(o1.x == o2.x)
-//                                return o1.y.compareTo(o2.y);
-//                            else return o1.x.compareTo(o2.x);
-//                        }
-//                    });
-//            int lastindex = Collections.binarySearch(stars,
-//                    new Star(x2,y2,0,0),
-//                    new Comparator<Star>() {
-//                        @Override
-//                        public int compare(Star o1, Star o2) {
-//                            if(o1.x == o2.x)
-//                                return o2.y.compareTo(o1.y);
-//                            else return o2.x.compareTo(o1.x);
-//                        }
-//                    });
-//            out.println(index + ":" + lastindex);
+
 
             for(Star s: stars) {
                 if(s.x >= x1 && s.y >= y1 && s.x <= x2 && s.y <= y2) {
@@ -88,6 +108,7 @@ public class _835C {
             return x+":"+y+"  ";
         }
     }
+    */
     void run() throws Exception {
         is = oj ? System.in : new ByteArrayInputStream(INPUT.getBytes());
         out = new PrintWriter(System.out);
