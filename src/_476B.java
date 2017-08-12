@@ -12,8 +12,8 @@ import java.util.*;
 public class _476B {
     InputStream is;
     PrintWriter out;
-    String INPUT = "+++\n" +
-            "??-";
+    String INPUT = "+-+-\n" +
+            "+-??";
     int sentVal = 0, receivedVal = 0;
     List<Integer> ll = new LinkedList<Integer>();
     void solve() {
@@ -34,14 +34,8 @@ public class _476B {
             else out.println("0.000000000000");
         } else {
             backtrack(q, 0);
-            double count = 0;
-            Iterator<Integer> itr = ll.iterator();
-            while(itr.hasNext()) {
-                if(itr.next() == sentVal) {
-                    count++;
-                }
-            }
-            out.println(count/(double)ll.size());
+            long c = ll.stream().filter(x -> x == sentVal).count();
+            out.println(c/(double)ll.size());
 
         }
     }
