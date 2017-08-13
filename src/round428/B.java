@@ -14,9 +14,20 @@ import java.util.InputMismatchException;
 public class B {
     InputStream is;
     PrintWriter out;
-    String INPUT = "";
+    String INPUT = "1 4\n" +
+            "2 2 2 2";
 
     void solve() {
+        int n = ni(), k = ni();
+        int seatPairsNeeded = 0;
+        for(int i = 0; i < k; i++) {
+            seatPairsNeeded += ((ni() +1)/2);
+        }
+        if(seatPairsNeeded > n*4) {
+            out.println("NO");
+        } else {
+            out.println("YES");
+        }
     }
 
     /* TEMPLATED CODE BELOW */
