@@ -12,11 +12,10 @@ import java.util.InputMismatchException;
 public class _845C {
     InputStream is;
     PrintWriter out;
-    String INPUT = "4\n" +
+    String INPUT = "3\n" +
             "1 2\n" +
             "2 3\n" +
-            "2 3\n" +
-            "1 2";
+            "4 5";
     class Pair {
         public Integer x, y;
         Pair(Integer x, Integer y) {
@@ -31,12 +30,17 @@ public class _845C {
         int n = ni();
         LinkedList<Pair> ll = new LinkedList<Pair>();
         for (int i = 0; i < n; i++) {
-            ll.add(new Pair(ni(), ni()));
+            int s = ni();
+            int f = ni();
+            ll.add(new Pair(s, 1));
+            ll.add(new Pair(f, -1));
         }
         Collections.sort(ll, new Comparator<Pair>() {
             @Override
             public int compare(Pair o1, Pair o2) {
-                return o1.x.compareTo(o2.x);
+                if(o1.x != o2.x)
+                    return o1.x.compareTo(o2.x);
+                return o2.y.compareTo(o1.y);
             }
         });
 //        for(Pair p : ll) {
@@ -51,26 +55,10 @@ public class _845C {
     public boolean checkList(LinkedList<Pair> ll) {
         LinkedList<Pair> p1 = new LinkedList<Pair>();
         LinkedList<Pair> p2 = new LinkedList<Pair>();
+        int t = 0;
         for(Pair p : ll) {
-            if(p1.isEmpty()) {
-                p1.add(p);
-                continue;
-            }
-            if(p2.isEmpty()) {
-                p2.add(p);
-                continue;
-            }
-            Pair a1 = p1.peek();
-            Pair a2 = p2.peek();
-            if(a1.y < p.x) {
-                p1.add(p);
-                continue;
-            } else if(a2.y < p.x) {
-                p2.add(p);
-                continue;
-            } else {
-                return false;
-            }
+            t += p.y;
+            if(t > 2) return false;
         }
         return true;
     }
