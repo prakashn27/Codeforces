@@ -1,67 +1,40 @@
-/**
- * Created by prakashn on 8/21/2017.
- */
+/*
+Author: prakashn
+Date  : 8/20/2017
+*/
+
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.lang.StringBuilder;
 
-public class _845C {
+public class _266B {
     InputStream is;
     PrintWriter out;
-    String INPUT = "3\n" +
-            "1 2\n" +
-            "2 3\n" +
-            "4 5";
-    class Pair {
-        public Integer x, y;
-        Pair(Integer x, Integer y) {
-            this.x = x;
-            this.y = y;
-        }
-        public String toString() {
-            return x + ":" + y;
-        }
-    }
+    String INPUT = "5 2\n" +
+            "BGGBG";
+    // BG -> GB
+    // x     x+1
+    char[] chs;
     void solve() {
         int n = ni();
-        LinkedList<Pair> ll = new LinkedList<Pair>();
-        for (int i = 0; i < n; i++) {
-            int s = ni();
-            int f = ni();
-            ll.add(new Pair(s, 1));
-            ll.add(new Pair(f, -1));
-        }
-        Collections.sort(ll, new Comparator<Pair>() {
-            @Override
-            public int compare(Pair o1, Pair o2) {
-                if(o1.x != o2.x)
-                    return o1.x.compareTo(o2.x);
-                return o2.y.compareTo(o1.y);
-            }
-        });
-//        for(Pair p : ll) {
-//            out.println(p);
-//        }
-        if(checkList(ll)) {
-            out.println("YES");
-        } else {
-            out.println("NO");
-        }
-    }
-    public boolean checkList(LinkedList<Pair> ll) {
-        LinkedList<Pair> p1 = new LinkedList<Pair>();
-        LinkedList<Pair> p2 = new LinkedList<Pair>();
-        int t = 0;
-        for(Pair p : ll) {
-            t += p.y;
-            if(t > 2) return false;
-        }
-        return true;
-    }
+        int t = ni();
+        String s = ns();
 
+        for(int i=0;i<t;i++) {
+            s=s.replaceAll("BG", "GB");
+        }
+        out.println(s);
+    }
+    void swap(int i, int j) {
+        char t = chs[i];
+        chs[i] = chs[j];
+        chs[j] = t;
+    }
+    /* TEMPLATED CODE BELOW */
     void run() throws Exception {
         is = oj ? System.in : new ByteArrayInputStream(INPUT.getBytes());
         out = new PrintWriter(System.out);
@@ -73,7 +46,7 @@ public class _845C {
     }
 
     public static void main(String[] args) throws Exception {
-        new _845C().run();
+        new _266B().run();
     }
 
     private byte[] inbuf = new byte[1024];
@@ -182,9 +155,26 @@ public class _845C {
         }
     }
 
+    // prints 2d array
+    private void printa(int[][] a) {
+        out.printf("\t");
+        for (int i = 0; i < a[0].length; i++) out.printf("%5d ", i);
+        out.println();
+        out.println("----------------");
+        for (int i = 0; i < a.length; i++) {
+            out.printf(i + " =>");
+            for (int j = 0; j < a[i].length; j++) {
+                out.printf("%5d ", a[i][j]);
+            }
+            out.println();
+        }
+        out.println();
+    }
+
     private boolean oj = System.getProperty("ONLINE_JUDGE") != null;
 
     private void tr(Object... o) {
         if (!oj) System.out.println(Arrays.deepToString(o));
     }
 }
+

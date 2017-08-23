@@ -15,23 +15,29 @@ public class _845B {
     String INPUT = "123456";
 
     void solve() {
-        String str = ns();
-        String f = str.substring(0, 3);
-        String s = str.substring(3);
-        int sum = 0;
-        for(char ch : f.toCharArray()) {
-            sum += ch-'0';
-        }
-        int sum2 = 0;
-        for(char ch : s.toCharArray()) {
-            if(ch-'0' == sum) {
-                out.println(2);
-                return;
+        String s = ns();
+        int min = Integer.MAX_VALUE;
+        int sum = 0, cur = 0;
+        String str;
+        for (int i = 0; i < 1000000; i++) {
+            sum = 0;
+            for (int j = 0, t = i; j < 6; t/=10,j++) {
+               if(j < 3){
+                   sum += t%10;
+               } else {
+                   sum -= t%10;
+               }
             }
-            sum2 += ch-'0';
+            if(sum == 0) {
+                cur = 0;
+                str = Integer.toString(1000000+i).substring(1);
+                for (int j = 0; j < 6; j++) {
+                  if(str.charAt(j) != s.charAt(j)) cur++;
+                }
+                min = Math.min(cur, min);
+            }
         }
-        int diff = Math.abs(sum - sum2);
-        int ans = diff/9;
+        out.println(min);
     }
 
     void run() throws Exception {

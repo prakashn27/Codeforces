@@ -26,3 +26,5 @@ hs_err_pid*
 Codeforces.iml
 
 test.java
+
+out/*
