@@ -1,111 +1,68 @@
 /**
- * Created by prakashn on 8/21/2017.
+ * Created by prakashn on 8/23/2017.
  */
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.*;
+import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.LinkedList;
 
-public class _845C {
+public class _845D {
     InputStream is;
     PrintWriter out;
-    String INPUT = "4\n" +
-            "1 2\n" +
-            "2 3\n" +
-            "2 3\n" +
-            "1 2";
-    class Pair {
-        public Integer x, y;
-        Pair(Integer x, Integer y) {
-            this.x = x;
-            this.y = y;
-        }
-        public String toString() {
-            return x + ":" + y;
-        }
-    }
-//    void solve() {
-//        int n = ni();
-//        LinkedList<Pair> ll = new LinkedList<Pair>();
-//        for (int i = 0; i < n; i++) {
-//            ll.add(new Pair(ni(), ni()));
-//        }
-//        Collections.sort(ll, new Comparator<Pair>() {
-//            @Override
-//            public int compare(Pair o1, Pair o2) {
-//
-//                if(o1.x != o2.x)
-//                    return o1.x.compareTo(o2.x);
-//                else
-//                    return o2.y.compareTo(o1.y);
-//
-//            }
-//        });
-////        for(Pair p : ll) {
-////            out.println(p);
-////        }
-//        if(checkList(ll)) {
-//            out.println("YES");
-//        } else {
-//            out.println("NO");
-//        }
-//    }
-void solve()
-{
-    int n = ni();
-    int[][] es = new int[2*n][];
-    int p = 0;
-    for(int i = 0;i < n;i++){
-        int s = ni();
-        int f = ni();
-        es[p++] = new int[]{s, 1};
-        es[p++] = new int[]{f, -1};
-    }
-    Arrays.sort(es, new Comparator<int[]>() {
-        public int compare(int[] a, int[] b) {
-            if(a[0] != b[0])return a[0] - b[0];
-            return -(a[1] - b[1]);
-        }
-    });
-    tr(es);
-    int h = 0;
-    for(int[] e : es){
-        h += e[1];
-        if(h > 2){
-            out.println("NO");
-            return;
-        }
-    }
-    out.println("YES");
-}
-    public boolean checkList(LinkedList<Pair> ll) {
-        LinkedList<Pair> p1 = new LinkedList<Pair>();
-        LinkedList<Pair> p2 = new LinkedList<Pair>();
-        for(Pair p : ll) {
-            if(p1.isEmpty()) {
-                p1.add(p);
-                continue;
-            }
-            if(p2.isEmpty()) {
-                p2.add(p);
-                continue;
-            }
-            Pair a1 = p1.peek();
-            Pair a2 = p2.peek();
-            if(a1.y < p.x) {
-                p1.add(p);
-                continue;
-            } else if(a2.y < p.x) {
-                p2.add(p);
-                continue;
-            } else {
-                return false;
+    String INPUT = "7\n" +
+            "1 20\n" +
+            "2\n" +
+            "6\n" +
+            "4\n" +
+            "6\n" +
+            "6\n" +
+            "2";
+
+    void solve() {
+        int n = ni(), speed = 300, ans = 0;
+        LinkedList<Integer> v1 = new LinkedList<Integer>();
+        v1.push(300);
+        LinkedList<Integer> v2 = new LinkedList<Integer>();
+        v2.push(1);
+
+        while(n-- > 0) {
+            int t = ni();
+            switch(t) {
+                case 1:
+                    speed = ni();
+                    while(v1.peek() < speed) {
+                        v1.pop();
+                        ans++;
+                    }
+                    break;
+                case 2:
+                    while(v2.peek() == 0) {
+                        v2.pop();
+                        ans++;
+                    }
+                    break;
+                case 3:
+                    int s = ni();
+                    if(s < speed) ans++;
+                    else v1.push(s);
+                    break;
+                case 4:
+                    v2.push(1);
+                    break;
+                case 5:
+                    v1.push(300);
+                    break;
+                case 6:
+                    v2.push(0);
+                    break;
+
             }
         }
-        return true;
+        out.println(ans);
     }
 
     void run() throws Exception {
@@ -119,7 +76,7 @@ void solve()
     }
 
     public static void main(String[] args) throws Exception {
-        new _845C().run();
+        new _845D().run();
     }
 
     private byte[] inbuf = new byte[1024];
