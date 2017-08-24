@@ -1,7 +1,6 @@
-/*
-Author: prakashn
-Date  : 8/22/2017
-*/
+/**
+ * Created by prakashn on 8/23/2017.
+ */
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -9,27 +8,63 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.InputMismatchException;
+import java.util.LinkedList;
 
 public class _845D {
     InputStream is;
     PrintWriter out;
-    String INPUT = "11\n" +
-            "1 100\n" +
-            "3 70\n" +
-            "4\n" +
+    String INPUT = "7\n" +
+            "1 20\n" +
             "2\n" +
-            "3 120\n" +
-            "5\n" +
-            "3 120\n" +
             "6\n" +
-            "1 150\n" +
             "4\n" +
-            "3 300";
+            "6\n" +
+            "6\n" +
+            "2";
 
     void solve() {
+        int n = ni(), speed = 300, ans = 0;
+        LinkedList<Integer> v1 = new LinkedList<Integer>();
+        v1.push(300);
+        LinkedList<Integer> v2 = new LinkedList<Integer>();
+        v2.push(1);
+
+        while(n-- > 0) {
+            int t = ni();
+            switch(t) {
+                case 1:
+                    speed = ni();
+                    while(v1.peek() < speed) {
+                        v1.pop();
+                        ans++;
+                    }
+                    break;
+                case 2:
+                    while(v2.peek() == 0) {
+                        v2.pop();
+                        ans++;
+                    }
+                    break;
+                case 3:
+                    int s = ni();
+                    if(s < speed) ans++;
+                    else v1.push(s);
+                    break;
+                case 4:
+                    v2.push(1);
+                    break;
+                case 5:
+                    v1.push(300);
+                    break;
+                case 6:
+                    v2.push(0);
+                    break;
+
+            }
+        }
+        out.println(ans);
     }
 
-    /* TEMPLATED CODE BELOW */
     void run() throws Exception {
         is = oj ? System.in : new ByteArrayInputStream(INPUT.getBytes());
         out = new PrintWriter(System.out);
@@ -150,26 +185,9 @@ public class _845D {
         }
     }
 
-    // prints 2d array
-    private void printa(int[][] a) {
-        out.printf("\t");
-        for (int i = 0; i < a[0].length; i++) out.printf("%5d ", i);
-        out.println();
-        out.println("----------------");
-        for (int i = 0; i < a.length; i++) {
-            out.printf(i + " =>");
-            for (int j = 0; j < a[i].length; j++) {
-                out.printf("%5d ", a[i][j]);
-            }
-            out.println();
-        }
-        out.println();
-    }
-
     private boolean oj = System.getProperty("ONLINE_JUDGE") != null;
 
     private void tr(Object... o) {
         if (!oj) System.out.println(Arrays.deepToString(o));
     }
 }
-
