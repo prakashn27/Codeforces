@@ -15,10 +15,13 @@ public class Executer {
     public int lenbuf = 0, ptrbuf = 0;
     InputStream is;
     PrintWriter out;
-    String INPUT = "4 3\n" +
+    String INPUT = "5 6\n" +
             "1 2\n" +
             "2 3\n" +
-            "2 4";
+            "3 1\n" +
+            "1 4\n" +
+            "4 5\n" +
+            "5 3";
     private byte[] inbuf = new byte[1024];
     private boolean oj = System.getProperty("ONLINE_JUDGE") != null;
 
@@ -39,20 +42,20 @@ public class Executer {
         g.printAdjList();
 
         // process graph
-        int from = 1, to = 4;
+//        int from = 1, to = 4;
 //        BFS bfs = new BFS(g, from);
 //        System.out.println(bfs.distTo(to));
 //        if(bfs.hasPathTo(to)) {
 //            System.out.println(bfs.pathTo(to));
 //        }
-        DFS dfs = new DFS(g, from);
-        System.out.println(dfs.countChildren(from));
-        if(dfs.hasPathTo(to)) {
-            System.out.println(dfs.pathTo(to));
-        }
-        System.out.println("check ancester 1 4 :" + dfs.checkAncestor(1, 4));
-        System.out.println("check ancester 4 2 :" + dfs.checkAncestor(4, 2));
-        System.out.println("check ancester 3 4 :" + dfs.checkAncestor(3, 4));
+//        DFS dfs = new DFS(g, from);
+//        System.out.println(dfs.countChildren(from));
+//        if(dfs.hasPathTo(to)) {
+//            System.out.println(dfs.pathTo(to));
+//        }
+//        System.out.println("check ancester 1 4 :" + dfs.checkAncestor(1, 4));
+//        System.out.println("check ancester 4 2 :" + dfs.checkAncestor(4, 2));
+//        System.out.println("check ancester 3 4 :" + dfs.checkAncestor(3, 4));
 //        DiGraph g = new DiGraph(v);
 //        for (int i = 0; i < e; i++) {
 //            int u = ni();
@@ -64,6 +67,8 @@ public class Executer {
 //          System.out.println("contains cycle: " + (c.hasCycle()));
 //        ConnectedComponents cc = new ConnectedComponents(g);
 //        System.out.println("no of connected components:" + cc.getCount());
+        Bridge b = new Bridge(g);
+        System.out.println(b.getCutVertices());
     }
 
     /* TEMPLATED CODE BELOW */
