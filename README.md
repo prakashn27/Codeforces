@@ -8,6 +8,7 @@ Handle : [prakashn](http://codeforces.com/profile/prakashn)
 ## Quick Links
 * [indy256/codelibrary](https://github.com/indy256/codelibrary/tree/master/java/src)
 * [Princeton java classes](http://algs4.cs.princeton.edu/code/)
+* [C++ tricks](https://www.quora.com/What-are-some-cool-C++-tricks-to-use-in-a-programming-contest)
 
 ## Codegurus
 * [uwi](http://codeforces.com/profile/uwi)
