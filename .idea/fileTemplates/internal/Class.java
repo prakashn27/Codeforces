@@ -17,19 +17,7 @@ public class ${NAME} {
     String INPUT = "";
 
     void solve() {
-        int t = ni();
-        String s, res = "";
-        while(t-- > 0) {
-            res = "";
-            s = ns();
-            if(s.length() <= 10) out.println(s);
-            else {
-                res += s.charAt(0);
-                res += Integer.toString(s.length()-2);
-                res += s.charAt(s.length()-1);
-                out.println(res);
-            }
-        }
+
     }
 
     /* TEMPLATED CODE BELOW */
