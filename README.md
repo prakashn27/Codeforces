@@ -10,6 +10,7 @@ Handle : [prakashn](http://codeforces.com/profile/prakashn)
 * [Princeton java classes](http://algs4.cs.princeton.edu/code/)
 * [C++ tricks](https://www.quora.com/What-are-some-cool-C++-tricks-to-use-in-a-programming-contest)
 * [Python enhancements](http://codeforces.com/blog/entry/46459)
+* [Java reference for commonly used libraries](https://github.com/AhmadElsagheer/Competitive-programming-library)
 
 ## Codegurus
 * [uwi](http://codeforces.com/profile/uwi)
